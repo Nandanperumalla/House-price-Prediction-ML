@@ -333,9 +333,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For questions, suggestions, or collaboration opportunities:
 
-- **Email**: [your-email@example.com]
-- **LinkedIn**: [Your LinkedIn Profile]
-- **GitHub**: [Your GitHub Profile]
+- **Email**: nandanperumalla15@gmail.com
+- **LinkedIn**: https://www.linkedin.com/in/nandan-perumalla-580a78319/
+- **GitHub**: https://github.com/Nandanperumalla
 
 ## 🙏 Acknowledgments
 
