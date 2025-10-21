@@ -1,4 +1,4 @@
-# 🏠 House Price Prediction Project
+# House Price Prediction Project
 
 A comprehensive machine learning project for predicting house prices using the Zillow dataset. This project includes data preprocessing, exploratory data analysis, model training, evaluation, and an interactive web application.
 
@@ -9,13 +9,13 @@ A comprehensive machine learning project for predicting house prices using the Z
 - [Project Structure]
 - [Installation]
 - [Usage]
-- [Data Processing Pipeline]
-- [Model Training]
-- [Web Application]
-- [Results]
-- [Future Improvements]
-- [Contributing]
-- [License]
+- [Data Processing Pipeline](#data-processing-pipeline)
+- [Model Training](#model-training)
+- [Web Application](#web-application)
+- [Results](#results)
+- [Future Improvements](#future-improvements)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## 🎯 Project Overview
 
