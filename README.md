@@ -4,18 +4,18 @@ A comprehensive machine learning project for predicting house prices using the Z
 
 ## 📋 Table of Contents
 
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Data Processing Pipeline](#data-processing-pipeline)
-- [Model Training](#model-training)
-- [Web Application](#web-application)
-- [Results](#results)
-- [Future Improvements](#future-improvements)
-- [Contributing](#contributing)
-- [License](#license)
+- [Project Overview]
+- [Features]
+- [Project Structure]
+- [Installation]
+- [Usage]
+- [Data Processing Pipeline]
+- [Model Training]
+- [Web Application]
+- [Results]
+- [Future Improvements]
+- [Contributing]
+- [License]
 
 ## 🎯 Project Overview
 
