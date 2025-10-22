@@ -9,13 +9,13 @@ A comprehensive machine learning project for predicting house prices using the Z
 - [Project Structure]
 - [Installation]
 - [Usage]
-- [Data Processing Pipeline](#data-processing-pipeline)
-- [Model Training](#model-training)
-- [Web Application](#web-application)
-- [Results](#results)
-- [Future Improvements](#future-improvements)
-- [Contributing](#contributing)
-- [License](#license)
+- [Data Processing Pipeline]
+- [Model Training]
+- [Web Application]
+- [Results]
+- [Future Improvements]
+- [Contributing]
+- [License]
 
 ## 🎯 Project Overview
 
@@ -347,4 +347,4 @@ For questions, suggestions, or collaboration opportunities:
 
 ---
 
-**Happy Predicting! 🏠📈**
+**Happy Predicting! 📈**
