@@ -24,7 +24,7 @@ from evaluation import ModelEvaluator
 
 # Page configuration
 st.set_page_config(
-    page_title="🏠 House Price Prediction",
+    page_title="House Price Prediction",
     page_icon="🏠",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -139,30 +139,30 @@ def main():
     # Page selection
     page = st.sidebar.selectbox(
         "Choose a page:",
-        ["🏠 Price Prediction", "📊 Data Analysis", "🤖 Model Training", "📈 Model Evaluation"]
+        ["Price Prediction", "Data Analysis", "Model Training", "Model Evaluation"]
     )
     
-    if page == "🏠 Price Prediction":
+    if page == "Price Prediction":
         price_prediction_page()
-    elif page == "📊 Data Analysis":
+    elif page == "Data Analysis":
         data_analysis_page()
-    elif page == "🤖 Model Training":
+    elif page == "Model Training":
         model_training_page()
-    elif page == "📈 Model Evaluation":
+    elif page == "Model Evaluation":
         model_evaluation_page()
 
 def price_prediction_page():
     """
     Price prediction page.
     """
-    st.header("🏠 House Price Prediction")
+    st.header("House Price Prediction")
     st.write("Enter the property details below to get a price prediction.")
     
     # Create two columns
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.subheader("📝 Property Details")
+        st.subheader("Property Details")
         
         # Input fields
         bedrooms = st.number_input("Number of Bedrooms", min_value=1, max_value=10, value=3)
@@ -173,7 +173,7 @@ def price_prediction_page():
         tax_value = st.number_input("Tax Assessed Value ($)", min_value=50000, max_value=10000000, value=300000, step=10000)
         
         # Additional features
-        st.subheader("🔧 Additional Features")
+        st.subheader("Additional Features")
         has_pool = st.checkbox("Has Pool")
         has_garage = st.checkbox("Has Garage")
         has_fireplace = st.checkbox("Has Fireplace")
@@ -242,7 +242,7 @@ def price_prediction_page():
             st.error(f"Error making prediction: {e}")
     
     # Additional information
-    st.subheader("ℹ️ About This Prediction")
+    st.subheader("About This Prediction")
     st.info("""
     This prediction is based on a machine learning model trained on historical house price data. 
     The model considers various factors including property size, location, age, and amenities.
@@ -257,7 +257,7 @@ def data_analysis_page():
     """
     Data analysis page.
     """
-    st.header("📊 Data Analysis")
+    st.header("Data Analysis")
     
     # Load sample data
     df = create_sample_data()
