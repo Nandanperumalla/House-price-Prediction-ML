@@ -25,7 +25,7 @@ from evaluation import ModelEvaluator
 # Page configuration
 st.set_page_config(
     page_title="House Price Prediction",
-    page_icon="🏠",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -131,10 +131,10 @@ def main():
     Main Streamlit application.
     """
     # Header
-    st.markdown('<h1 class="main-header">🏠 House Price Prediction</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">House Price Prediction</h1>', unsafe_allow_html=True)
     
     # Sidebar
-    st.sidebar.title("🎛️ Control Panel")
+    st.sidebar.title("Control Panel")
     
     # Page selection
     page = st.sidebar.selectbox(
@@ -179,7 +179,7 @@ def price_prediction_page():
         has_fireplace = st.checkbox("Has Fireplace")
         
     with col2:
-        st.subheader("🎯 Prediction")
+        st.subheader("Prediction")
         
         # Create feature vector
         base_features = {
@@ -263,7 +263,7 @@ def data_analysis_page():
     df = create_sample_data()
     
     # Data overview
-    st.subheader("📋 Dataset Overview")
+    st.subheader("Dataset Overview")
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
@@ -276,15 +276,15 @@ def data_analysis_page():
         st.metric("Duplicate Rows", df.duplicated().sum())
     
     # Data preview
-    st.subheader("🔍 Data Preview")
+    st.subheader("Data Preview")
     st.dataframe(df.head(10))
     
     # Statistics
-    st.subheader("📈 Statistical Summary")
+    st.subheader("Statistical Summary")
     st.dataframe(df.describe())
     
     # Visualizations
-    st.subheader("📊 Data Visualizations")
+    st.subheader("Data Visualizations")
     
     # Distribution plots
     col1, col2 = st.columns(2)
@@ -300,7 +300,7 @@ def data_analysis_page():
         st.plotly_chart(fig, use_container_width=True)
     
     # Correlation heatmap
-    st.subheader("🔗 Feature Correlations")
+    st.subheader("Feature Correlations")
     correlation_matrix = df.corr()
     fig = px.imshow(correlation_matrix, 
                     text_auto=True, 
@@ -309,7 +309,7 @@ def data_analysis_page():
     st.plotly_chart(fig, use_container_width=True)
     
     # Scatter plots
-    st.subheader("📈 Feature Relationships")
+    st.subheader("Feature Relationships")
     
     col1, col2 = st.columns(2)
     
@@ -327,7 +327,7 @@ def model_training_page():
     """
     Model training page.
     """
-    st.header("🤖 Model Training")
+    st.header("Model Training")
     
     # Load sample data
     df = create_sample_data()
@@ -336,7 +336,7 @@ def model_training_page():
     preprocessor = DataPreprocessor()
     trainer = ModelTrainer()
     
-    st.subheader("📊 Data Preprocessing")
+    st.subheader("Data Preprocessing")
     
     # Preprocessing options
     col1, col2 = st.columns(2)
@@ -350,7 +350,7 @@ def model_training_page():
         scale_features = st.checkbox("Scale Features", value=True)
     
     # Process data
-    if st.button("🔄 Process Data"):
+    if st.button("Process Data"):
         with st.spinner("Processing data..."):
             # Run preprocessing pipeline
             X, y = preprocessor.preprocess_pipeline(df)
@@ -364,7 +364,7 @@ def model_training_page():
             st.session_state['y'] = y
     
     # Model training
-    st.subheader("🎯 Model Training")
+    st.subheader("Model Training")
     
     if 'X' in st.session_state and 'y' in st.session_state:
         X = st.session_state['X']
@@ -377,7 +377,7 @@ def model_training_page():
             default=["Random Forest", "XGBoost"]
         )
         
-        if st.button("🚀 Train Models"):
+        if st.button("Train Models"):
             with st.spinner("Training models..."):
                 # Initialize models
                 trainer.initialize_models()
@@ -404,7 +404,7 @@ def model_training_page():
     
     # Model comparison
     if 'trainer' in st.session_state:
-        st.subheader("📊 Model Comparison")
+        st.subheader("Model Comparison")
         trainer = st.session_state['trainer']
         
         # Create comparison table
@@ -428,7 +428,7 @@ def model_evaluation_page():
     """
     Model evaluation page.
     """
-    st.header("📈 Model Evaluation")
+    st.header("Model Evaluation")
     
     if 'trainer' in st.session_state and 'X_test' in st.session_state and 'y_test' in st.session_state:
         trainer = st.session_state['trainer']
@@ -438,7 +438,7 @@ def model_evaluation_page():
         # Model selection for evaluation
         model_name = st.selectbox("Select Model for Evaluation", list(trainer.models.keys()))
         
-        if st.button("📊 Evaluate Model"):
+        if st.button("Evaluate Model"):
             model = trainer.models[model_name]
             
             # Make predictions
@@ -465,7 +465,7 @@ def model_evaluation_page():
                 st.metric("MAPE", f"{metrics['mape']:.2f}%")
             
             # Visualizations
-            st.subheader("📈 Evaluation Visualizations")
+            st.subheader("Evaluation Visualizations")
             
             # Predicted vs Actual
             fig = px.scatter(x=y_test, y=y_pred, 
