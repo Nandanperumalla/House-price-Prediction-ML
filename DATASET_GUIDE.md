@@ -1,6 +1,6 @@
-# 📊 How to Add the Zillow Dataset
+# How to Add the Zillow Dataset
 
-## 🎯 **Quick Start**
+## **Quick Start**
 
 ### **Step 1: Download the Dataset**
 
@@ -39,7 +39,7 @@ python train_with_real_data.py
 
 ---
 
-## 📋 **Detailed Instructions**
+## **Detailed Instructions**
 
 ### **Option 1: Manual Download (Recommended)**
 
@@ -88,7 +88,7 @@ This will create sample datasets that mimic the Zillow structure.
 
 ---
 
-## 🔍 **Dataset Overview**
+## **Dataset Overview**
 
 ### **Training Data (train_2016.csv)**
 - **parcelid**: Unique property identifier
@@ -110,7 +110,7 @@ Key features include:
 
 ---
 
-## 🚀 **Usage Examples**
+## **Usage Examples**
 
 ### **1. Analyze Dataset Structure**
 ```bash
@@ -134,7 +134,7 @@ streamlit run app.py
 
 ---
 
-## ⚠️ **Important Notes**
+##  **Important Notes**
 
 1. **File Size**: The full dataset is quite large (~1GB+)
 2. **Memory Requirements**: Training may require 8GB+ RAM
@@ -143,7 +143,7 @@ streamlit run app.py
 
 ---
 
-## 🔧 **Troubleshooting**
+##  **Troubleshooting**
 
 ### **Common Issues**:
 
@@ -174,7 +174,7 @@ if os.path.exists("data/train_2016.csv"):
 
 ---
 
-## 📈 **Expected Results**
+##  **Expected Results**
 
 With the real Zillow dataset, you should see:
 - **Better model performance** (R² > 0.1)
@@ -184,7 +184,7 @@ With the real Zillow dataset, you should see:
 
 ---
 
-## 🎉 **Next Steps**
+##  **Next Steps**
 
 Once you have the dataset:
 1. Run the data preparation script
@@ -193,4 +193,4 @@ Once you have the dataset:
 4. Experiment with feature engineering
 5. Deploy the web application
 
-**Happy Modeling! 🏠📈**
+**Happy Modeling!**
