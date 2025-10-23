@@ -22,17 +22,17 @@
 
 ---
 
-## 📋 **Data Types Explained**
+## **Data Types Explained**
 
 ### **1. Your Current Data (Metro Area Level)**
 ```
-✅ What you have:
+What you have:
 - Metro_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv
 - Metro_zori_uc_sfrcondomfr_sm_month.csv
 - Metro_zhvf_growth_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv
 - And other metro-level files
 
-📊 Characteristics:
+Characteristics:
 - 895 metropolitan areas (cities/regions)
 - Time series data (2000-2025)
 - Aggregated home values by metro area
@@ -41,11 +41,11 @@
 
 ### **2. Individual Property Data (What You Need for House Price Prediction)**
 ```
-❌ What you need:
+What you need:
 - train_2016.csv (individual property transactions)
 - properties_2016.csv (individual property features)
 
-📊 Characteristics:
+Characteristics:
 - ~2.9 million individual properties
 - Property-level features (bedrooms, bathrooms, square footage, etc.)
 - Individual transaction prices
@@ -54,7 +54,7 @@
 
 ---
 
-## 🚀 **How to Get Individual Property Data**
+## **How to Get Individual Property Data**
 
 ### **Option 1: Kaggle Competition Data (Recommended)**
 1. **Go to**: [Zillow Prize Competition](https://www.kaggle.com/c/zillow-prize-1)
@@ -76,7 +76,7 @@
 
 ---
 
-## 📈 **Results Comparison**
+## **Results Comparison**
 
 | Data Type | Samples | Features | Best Model | R² Score | Use Case |
 |-----------|---------|----------|------------|----------|----------|
@@ -86,7 +86,7 @@
 
 ---
 
-## 🎯 **Next Steps**
+## **Next Steps**
 
 ### **For Individual Property Prediction:**
 1. **Download individual property data** from Kaggle
@@ -108,7 +108,7 @@
 
 ---
 
-## 🔧 **Available Scripts**
+## **Available Scripts**
 
 | Script | Purpose | Data Type | Status |
 |--------|---------|-----------|--------|
@@ -120,7 +120,7 @@
 
 ---
 
-## 💡 **Recommendations**
+## **Recommendations**
 
 ### **If you want individual house price prediction:**
 1. Download the Kaggle competition data
@@ -139,7 +139,7 @@
 
 ---
 
-## 🎉 **Summary**
+##  **Summary**
 
 ✅ **Your data works perfectly** for metro area price prediction
 ✅ **All scripts are functional** and ready to use
@@ -150,4 +150,4 @@ The only difference is the **scope of prediction**:
 - **Your data**: Metro area trends (895 regions)
 - **Individual data**: Individual house prices (2.9M properties)
 
-Both approaches are valid and useful for different purposes! 🏠📈
+Both approaches are valid and useful for different purposes! 
