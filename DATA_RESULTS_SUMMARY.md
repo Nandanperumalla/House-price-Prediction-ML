@@ -1,8 +1,8 @@
-# 📊 Data Types and Results Summary
+# Data Types and Results Summary
 
-## 🎯 **What We've Accomplished**
+## **What We've Accomplished**
 
-### ✅ **Successfully Trained Models with Your Data**
+### **Successfully Trained Models with Your Data**
 
 1. **Metro Area Data Training** (`train_metro_data.py`)
    - **Data**: Your Zillow metropolitan area time series data
