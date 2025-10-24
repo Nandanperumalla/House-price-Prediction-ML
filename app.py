@@ -21,6 +21,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 from data_preprocessing import DataPreprocessor
 from model_training import ModelTrainer
 from evaluation import ModelEvaluator
+from predict_advanced import AdvancedPredictor
+from time_series_learning import TimeSeriesLearner
 
 # Page configuration
 st.set_page_config(
@@ -297,7 +299,7 @@ def main():
     # Page selection
     page = st.sidebar.selectbox(
         "Choose a section:",
-        ["📊 Dashboard", "🔮 Price Prediction", "📈 Data Analysis", "🤖 Model Training", "📋 Model Evaluation", "ℹ️ About Project"]
+        ["📊 Dashboard", "🔮 Price Prediction", "📈 Data Analysis", "🤖 Model Training", "🚀 Advanced Training", "📋 Model Evaluation", "ℹ️ About Project"]
     )
     
     # Add project info in sidebar
@@ -329,6 +331,8 @@ def main():
         data_analysis_page()
     elif page == "🤖 Model Training":
         model_training_page()
+    elif page == "🚀 Advanced Training":
+        advanced_training_page()
     elif page == "📋 Model Evaluation":
         model_evaluation_page()
     elif page == "ℹ️ About Project":
@@ -530,10 +534,23 @@ def about_project_page():
 
 def price_prediction_page():
     """
-    Clean, focused price prediction page.
+    Advanced price prediction page with confidence intervals and market insights.
     """
-    st.markdown("## 🔮 Price Prediction")
-    st.markdown("### Enter property details to get an AI-powered price estimate")
+    st.markdown("## 🔮 Advanced Price Prediction")
+    st.markdown("### AI-powered predictions with confidence intervals and market insights")
+    
+    # Initialize advanced predictor
+    try:
+        advanced_predictor = AdvancedPredictor()
+        model_info = advanced_predictor.get_model_info()
+        
+        if model_info['status'] == 'Model loaded':
+            st.success(f"✅ Advanced Model Loaded: {model_info['model_name']} (R² = {model_info['r2_score']:.4f})")
+        else:
+            st.warning("⚠️ Advanced model not available. Using demo model.")
+    except:
+        st.warning("⚠️ Advanced model not available. Using demo model.")
+        advanced_predictor = None
     
     # Create two main columns
     col1, col2 = st.columns([1, 1])
@@ -550,7 +567,20 @@ def price_prediction_page():
         
         st.markdown("### 📍 Location")
         zip_code = st.number_input("📮 ZIP Code", min_value=10000, max_value=99999, value=12345)
+        latitude = st.number_input("🌍 Latitude", min_value=25.0, max_value=49.0, value=40.7128, step=0.0001)
+        longitude = st.number_input("🌍 Longitude", min_value=-125.0, max_value=-66.0, value=-74.0060, step=0.0001)
+        
+        st.markdown("### 💰 Property Value")
         tax_value = st.number_input("💰 Tax Value ($)", min_value=50000, max_value=10000000, value=300000, step=10000)
+        land_value = st.number_input("🏞️ Land Value ($)", min_value=10000, max_value=5000000, value=150000, step=10000)
+        structure_value = st.number_input("🏗️ Structure Value ($)", min_value=10000, max_value=5000000, value=150000, step=10000)
+        
+        st.markdown("### 🏠 Property Features")
+        lot_size = st.number_input("📏 Lot Size (sq ft)", min_value=1000, max_value=100000, value=8000)
+        quality_score = st.slider("⭐ Building Quality (1-12)", min_value=1, max_value=12, value=6)
+        has_pool = st.checkbox("🏊 Swimming Pool")
+        has_garage = st.checkbox("🚗 Garage")
+        has_fireplace = st.checkbox("🔥 Fireplace")
         
         st.markdown('</div>', unsafe_allow_html=True)
     
@@ -558,80 +588,96 @@ def price_prediction_page():
         st.markdown('<div class="prediction-card">', unsafe_allow_html=True)
         st.markdown("### 💰 Price Prediction")
         
-        # Create feature vector
-        base_features = {
-            'parcelid': 1,
+        # Create property data for advanced prediction
+        property_data = {
             'bedroomcnt': bedrooms,
             'bathroomcnt': bathrooms,
             'calculatedfinishedsquarefeet': square_feet,
-            'taxvaluedollarcnt': tax_value,
+            'latitude': latitude,
+            'longitude': longitude,
             'yearbuilt': year_built,
-            'regionidzip': zip_code,
-            'logerror': 0.0
+            'taxvaluedollarcnt': tax_value,
+            'landtaxvaluedollarcnt': land_value,
+            'structuretaxvaluedollarcnt': structure_value,
+            'buildingqualitytypeid': quality_score,
+            'heatingorsystemtypeid': 10,
+            'airconditioningtypeid': 5,
+            'poolcnt': 1 if has_pool else 0,
+            'garagecarcnt': 1 if has_garage else 0,
+            'fireplacecnt': 1 if has_fireplace else 0,
+            'lotsizesquarefeet': lot_size,
+            'unitcnt': 1,
+            'numberofstories': 2,
+            'propertylandusetypeid': 261,
+            'hashottuborspa': 0
         }
-        feature_df = pd.DataFrame([base_features])
         
-        # Load model and make prediction
-        try:
-            # Try loading user's trained model first
-            model = None
-            try:
-                model_path = "models/best_model.pkl"
-                if os.path.exists(model_path):
-                    model = joblib.load(model_path)
-            except Exception:
-                model = None
-
-            if model is not None:
-                # Apply the same preprocessing used during training
-                preprocessor = DataPreprocessor()
-                X_processed, _ = preprocessor.preprocess_pipeline(feature_df)
-                prediction = model.predict(X_processed)[0]
-            else:
-                # Fallback to internal demo model
-                model = load_sample_model()
-                # Align to demo model's feature set
-                demo_features = feature_df[[
-                    'bedroomcnt',
-                    'bathroomcnt',
-                    'calculatedfinishedsquarefeet',
-                    'taxvaluedollarcnt',
-                    'yearbuilt',
-                    'regionidzip'
-                ]]
-                prediction = model.predict(demo_features)[0]
+        # Make prediction using advanced system
+        if advanced_predictor and model_info['status'] == 'Model loaded':
+            # Use advanced predictor with confidence intervals
+            result = advanced_predictor.predict_single(property_data)
             
-            # Display prediction with enhanced styling
+            if 'error' not in result:
+                prediction = result['prediction']
+                confidence_lower = result['confidence_lower']
+                confidence_upper = result['confidence_upper']
+                confidence_level = result['confidence_level']
+                uncertainty = result['uncertainty']
+                model_name = result['model_name']
+                r2_score = result['r2_score']
+                
+                # Display prediction with enhanced styling
+                st.markdown('<div class="prediction-value">', unsafe_allow_html=True)
+                st.markdown(f"${prediction:,.0f}")
+                st.markdown('</div>', unsafe_allow_html=True)
+                
+                # Confidence interval
+                st.markdown(f"**🎯 Confidence Level:** {confidence_level:.1%}")
+                st.markdown(f"**📊 Price Range:**")
+                st.markdown(f"${confidence_lower:,.0f} - ${confidence_upper:,.0f}")
+                st.markdown(f"**📈 Uncertainty:** ±${uncertainty:,.0f}")
+                
+                # Additional metrics
+                price_per_sqft = prediction / square_feet
+                st.markdown(f"**📐 Price per Sq Ft:** ${price_per_sqft:,.0f}")
+                
+                # Model information
+                st.markdown(f"**🤖 Model:** {model_name}")
+                st.markdown(f"**📊 R² Score:** {r2_score:.4f}")
+                
+            else:
+                st.error(f"❌ Prediction Error: {result['error']}")
+        else:
+            # Fallback to demo model
+            model = load_sample_model()
+            demo_features = pd.DataFrame([{
+                'bedroomcnt': bedrooms,
+                'bathroomcnt': bathrooms,
+                'calculatedfinishedsquarefeet': square_feet,
+                'taxvaluedollarcnt': tax_value,
+                'yearbuilt': year_built,
+                'regionidzip': zip_code
+            }])
+            prediction = model.predict(demo_features)[0]
+            
+            # Display prediction
             st.markdown('<div class="prediction-value">', unsafe_allow_html=True)
             st.markdown(f"${prediction:,.0f}")
             st.markdown('</div>', unsafe_allow_html=True)
             
-            # Confidence interval based on actual model performance
-            if model is not None and hasattr(model, 'feature_importances_'):
-                # Real model - use actual performance
-                confidence = 0.89  # Sample model R²
-                margin = prediction * 0.15  # Higher margin for sample model
-            else:
-                # Demo model - use demo performance
-                confidence = 0.77  # Demo model R²
-                margin = prediction * 0.20  # Higher margin for demo
-            
+            # Simple confidence interval
+            confidence = 0.77
+            margin = prediction * 0.20
             lower_bound = prediction - margin
             upper_bound = prediction + margin
             
-            st.markdown(f"**🎯 Model Confidence:** {confidence*100:.0f}%")
+            st.markdown(f"**🎯 Confidence:** {confidence*100:.0f}%")
             st.markdown(f"**📊 Price Range:**")
             st.markdown(f"${lower_bound:,.0f} - ${upper_bound:,.0f}")
             
-            # Additional metrics
             price_per_sqft = prediction / square_feet
             st.markdown(f"**📐 Price per Sq Ft:** ${price_per_sqft:,.0f}")
-            
-            # Model type indicator
-            if model is not None and hasattr(model, 'feature_importances_'):
-                st.markdown(f"**🤖 Model Type:** Sample Data Model")
-            else:
-                st.markdown(f"**🤖 Model Type:** Demo Model")
+            st.markdown(f"**🤖 Model:** Demo Model")
             
         except Exception as e:
             st.error(f"❌ Error making prediction: {e}")
