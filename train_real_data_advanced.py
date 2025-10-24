@@ -72,7 +72,7 @@ class AdvancedRealDataTrainer:
         print("🔄 Creating realistic sample data (2.9M properties)...")
         
         np.random.seed(42)
-        n_properties = 2900000  # 2.9M properties
+        n_properties = 100000  # 100K properties for demo
         
         # Create realistic property data
         data = {
@@ -107,7 +107,7 @@ class AdvancedRealDataTrainer:
             'propertyzoningdesc': np.random.choice(['R1', 'R2', 'R3', 'R4', 'R5', 'C1', 'C2', 'C3', 'M1', 'M2'], n_properties),
             
             # Building features
-            'buildingqualitytypeid': np.random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], n_properties, p=[0.01, 0.02, 0.05, 0.1, 0.15, 0.2, 0.2, 0.15, 0.1, 0.05, 0.02, 0.01]),
+            'buildingqualitytypeid': np.random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], n_properties, p=[0.01, 0.02, 0.05, 0.1, 0.15, 0.2, 0.2, 0.15, 0.1, 0.05, 0.02, 0.0]),
             'heatingorsystemtypeid': np.random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], n_properties),
             'airconditioningtypeid': np.random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], n_properties),
             'architecturalstyletypeid': np.random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30], n_properties),
