@@ -613,71 +613,72 @@ def price_prediction_page():
         }
         
         # Make prediction using advanced system
-        if advanced_predictor and model_info['status'] == 'Model loaded':
-            # Use advanced predictor with confidence intervals
-            result = advanced_predictor.predict_single(property_data)
-            
-            if 'error' not in result:
-                prediction = result['prediction']
-                confidence_lower = result['confidence_lower']
-                confidence_upper = result['confidence_upper']
-                confidence_level = result['confidence_level']
-                uncertainty = result['uncertainty']
-                model_name = result['model_name']
-                r2_score = result['r2_score']
+        try:
+            if advanced_predictor and model_info['status'] == 'Model loaded':
+                # Use advanced predictor with confidence intervals
+                result = advanced_predictor.predict_single(property_data)
                 
-                # Display prediction with enhanced styling
+                if 'error' not in result:
+                    prediction = result['prediction']
+                    confidence_lower = result['confidence_lower']
+                    confidence_upper = result['confidence_upper']
+                    confidence_level = result['confidence_level']
+                    uncertainty = result['uncertainty']
+                    model_name = result['model_name']
+                    r2_score = result['r2_score']
+                    
+                    # Display prediction with enhanced styling
+                    st.markdown('<div class="prediction-value">', unsafe_allow_html=True)
+                    st.markdown(f"${prediction:,.0f}")
+                    st.markdown('</div>', unsafe_allow_html=True)
+                    
+                    # Confidence interval
+                    st.markdown(f"**🎯 Confidence Level:** {confidence_level:.1%}")
+                    st.markdown(f"**📊 Price Range:**")
+                    st.markdown(f"${confidence_lower:,.0f} - ${confidence_upper:,.0f}")
+                    st.markdown(f"**📈 Uncertainty:** ±${uncertainty:,.0f}")
+                    
+                    # Additional metrics
+                    price_per_sqft = prediction / square_feet
+                    st.markdown(f"**📐 Price per Sq Ft:** ${price_per_sqft:,.0f}")
+                    
+                    # Model information
+                    st.markdown(f"**🤖 Model:** {model_name}")
+                    st.markdown(f"**📊 R² Score:** {r2_score:.4f}")
+                    
+                else:
+                    st.error(f"❌ Prediction Error: {result['error']}")
+            else:
+                # Fallback to demo model
+                model = load_sample_model()
+                demo_features = pd.DataFrame([{
+                    'bedroomcnt': bedrooms,
+                    'bathroomcnt': bathrooms,
+                    'calculatedfinishedsquarefeet': square_feet,
+                    'taxvaluedollarcnt': tax_value,
+                    'yearbuilt': year_built,
+                    'regionidzip': zip_code
+                }])
+                prediction = model.predict(demo_features)[0]
+                
+                # Display prediction
                 st.markdown('<div class="prediction-value">', unsafe_allow_html=True)
                 st.markdown(f"${prediction:,.0f}")
                 st.markdown('</div>', unsafe_allow_html=True)
                 
-                # Confidence interval
-                st.markdown(f"**🎯 Confidence Level:** {confidence_level:.1%}")
-                st.markdown(f"**📊 Price Range:**")
-                st.markdown(f"${confidence_lower:,.0f} - ${confidence_upper:,.0f}")
-                st.markdown(f"**📈 Uncertainty:** ±${uncertainty:,.0f}")
+                # Simple confidence interval
+                confidence = 0.77
+                margin = prediction * 0.20
+                lower_bound = prediction - margin
+                upper_bound = prediction + margin
                 
-                # Additional metrics
+                st.markdown(f"**🎯 Confidence:** {confidence*100:.0f}%")
+                st.markdown(f"**📊 Price Range:**")
+                st.markdown(f"${lower_bound:,.0f} - ${upper_bound:,.0f}")
+                
                 price_per_sqft = prediction / square_feet
                 st.markdown(f"**📐 Price per Sq Ft:** ${price_per_sqft:,.0f}")
-                
-                # Model information
-                st.markdown(f"**🤖 Model:** {model_name}")
-                st.markdown(f"**📊 R² Score:** {r2_score:.4f}")
-                
-            else:
-                st.error(f"❌ Prediction Error: {result['error']}")
-        else:
-            # Fallback to demo model
-            model = load_sample_model()
-            demo_features = pd.DataFrame([{
-                'bedroomcnt': bedrooms,
-                'bathroomcnt': bathrooms,
-                'calculatedfinishedsquarefeet': square_feet,
-                'taxvaluedollarcnt': tax_value,
-                'yearbuilt': year_built,
-                'regionidzip': zip_code
-            }])
-            prediction = model.predict(demo_features)[0]
-            
-            # Display prediction
-            st.markdown('<div class="prediction-value">', unsafe_allow_html=True)
-            st.markdown(f"${prediction:,.0f}")
-            st.markdown('</div>', unsafe_allow_html=True)
-            
-            # Simple confidence interval
-            confidence = 0.77
-            margin = prediction * 0.20
-            lower_bound = prediction - margin
-            upper_bound = prediction + margin
-            
-            st.markdown(f"**🎯 Confidence:** {confidence*100:.0f}%")
-            st.markdown(f"**📊 Price Range:**")
-            st.markdown(f"${lower_bound:,.0f} - ${upper_bound:,.0f}")
-            
-            price_per_sqft = prediction / square_feet
-            st.markdown(f"**📐 Price per Sq Ft:** ${price_per_sqft:,.0f}")
-            st.markdown(f"**🤖 Model:** Demo Model")
+                st.markdown(f"**🤖 Model:** Demo Model")
             
         except Exception as e:
             st.error(f"❌ Error making prediction: {e}")
